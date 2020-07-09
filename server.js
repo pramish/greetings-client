@@ -3,6 +3,8 @@ require('dotenv').config();
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const { graphqlHTTP } = require('express-graphql');
+const expressPlayground = require('graphql-playground-middleware-express')
+  .default;
 
 const app = express();
 app.use(bodyParser.json());
@@ -33,6 +35,8 @@ app.use(
     graphiql: true,
   })
 );
+
+app.get('/playground', expressPlayground({ endpoint: '/graphql' }));
 
 mongoose
   .connect(process.env.MONGO_URI, {
