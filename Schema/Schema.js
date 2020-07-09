@@ -1,21 +1,19 @@
 const { buildSchema } = require('graphql');
 
 module.exports = schema = buildSchema(`
-  type User {
-    _id: ID!
-    name: String!
-    email: String!
-    dateOfBirth: String!
-    password: String!
-    # friends: [User]
+	type User {
+		_id: ID!
+		name: String!
+		email: String!
+		dateOfBirth: String!
+		password: String!
 	}
-
-	input EmailInput{
+	type Email{
 		sender: String!
 		receiver: String!
 		message: String!
 	}
-	type Email{
+	input EmailInput{
 		sender: String!
 		receiver: String!
 		message: String!
@@ -24,21 +22,26 @@ module.exports = schema = buildSchema(`
 		email: String!
 		password: String!
 	}
-  input UserInput {
-    name: String!
-    email: String!
-    dateOfBirth: String!
-    password: String!
-  }
-  type RootQuery {
-	users: [User]
-	login(loginInput:LoginInput):User
-  }
-  type RootMutation {
+	input UserInput {
+		name: String!
+		email: String!
+		dateOfBirth: String!
+		password: String!
+	}
+	type AuthData{
+		userId: ID
+        token: String!
+        tokenExpiration: Int!
+	}
+	type RootQuery {
+		users: [User!]!
+		login(loginInput:LoginInput):AuthData!
+	}
+	type RootMutation {
 		createUser(userInput: UserInput): User
 		sendEmail(emailInput: EmailInput): Email
 	}
-	schema{
+	schema {
 		query:RootQuery
 		mutation:RootMutation
 	}
