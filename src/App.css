@@ -13,15 +13,27 @@
 	color: black;
 }
 
+.authform {
+	display: flex;
+	/* flex-wrap: wrap; */
+	flex-flow: column;
+	align-content: center;
+	justify-content: space-evenly;
+	/* align-items: stretch; */
+}
+
 .submitbtn {
 	display: flex;
-	padding: 10px;
 	flex-wrap: wrap;
-	justify-content: space-evenly;
+	justify-content: center;
 	align-items: center;
 }
 
 .logintext {
 	font-size: xx-large;
 	cursor: pointer;
+}
+
+.fields {
+	width: auto;
 }

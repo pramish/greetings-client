@@ -12,54 +12,61 @@ function App() {
               Greetings
             </a>
             <ul id='nav-mobile' className='right hide-on-med-and-down'>
-              <li>
-                <button
-                  onClick={() => setAuthPage(() => !register)}
-                  data-target='modal1'
-                  className='account btn '
-                  type='submit'
-                  name='action'
-                >
-                  My Account
-                </button>
-                {authPage}
-              </li>
+              <button
+                onClick={() => setAuthPage(() => !authPage)}
+                data-target='modal1'
+                className='account btn '
+                type='submit'
+                name='action'
+              >
+                My Account
+              </button>
+              {/* {authPage} */}
             </ul>
           </div>
         </nav>
       </div>
+
       {authPage ? (
         <>
-          <p className='logintext'>
-            {register ? 'Create Your Account' : 'Access your account'}
-          </p>
+          <div>
+            <p className='logintext'>
+              {register ? 'Create Your Account' : 'Access your account'}
+            </p>
+          </div>
           <form>
-            <div className='input-field col s6'>
-              <input id='email' type='text' className='validate' />
-              <label for='email'>Email Address</label>
+            <div className='authform'>
+              <div className='input-field col s6 fields'>
+                <input id='email' type='text' className='validate' />
+                <label for='email'>Email Address</label>
+              </div>
+              <div className='input-field col s6 fields'>
+                <input id='password' type='password' className='validate' />
+                <label for='password'>Password</label>
+              </div>
+              {register ? (
+                <>
+                  <div className='input-field col s6 fields'>
+                    <input
+                      id='cpassword'
+                      type='password'
+                      className='validate'
+                    />
+                    <label for='cpassword'>Confirm Password</label>
+                  </div>
+                  <div className='input-field col s6 fields'>
+                    <input id='name' type='text' className='validate' />
+                    <label for='name'>Name</label>
+                  </div>
+                  <div className='input-field col s6 fields'>
+                    <input type='text' id='date' className='validate' />
+                    <label for='date'>Date of Birth</label>
+                  </div>
+                </>
+              ) : (
+                <></>
+              )}
             </div>
-            <div className='input-field col s6'>
-              <input id='password' type='password' className='validate' />
-              <label for='password'>Password</label>
-            </div>
-            {register ? (
-              <>
-                <div className='input-field col s6'>
-                  <input id='cpassword' type='password' className='validate' />
-                  <label for='cpassword'>Confirm Password</label>
-                </div>
-                <div class='input-field col s6'>
-                  <input id='name' type='text' className='validate' />
-                  <label for='name'>Name</label>
-                </div>
-                <div className='input-field col s6'>
-                  <input type='text' id='date' className='validate' />
-                  <label for='date'>Date of Birth</label>
-                </div>
-              </>
-            ) : (
-              <></>
-            )}
 
             <div className='submitbtn'>
               <button
@@ -71,7 +78,7 @@ function App() {
               </button>
               <div>
                 <p
-                  onClick={() => setRegister((register) => !register)}
+                  onClick={() => setRegister(() => !register)}
                   className='logintext'
                 >
                   {register
