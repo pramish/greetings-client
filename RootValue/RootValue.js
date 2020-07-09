@@ -1,3 +1,5 @@
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
 const User = require('../models/User');
 const SendEmail = require('../helper/send_email_helper');
 module.exports = RootValue = {
@@ -7,15 +9,22 @@ module.exports = RootValue = {
   },
   createUser: async (args) => {
     try {
-      const newUser = new User({
-        name: args.userInput.name,
-        email: args.userInput.email,
-        dateOfBirth: args.userInput.dateOfBirth,
-      });
-      await newUser.save();
-      return { ...newUser._doc };
+      const user = await User.findOne({ email: args.userInput.email });
+      if (user) {
+        throw new Error();
+      } else {
+        const hashedPassword = await bcrypt.hash(args.userInput.password, 10);
+        const newUser = new User({
+          name: args.userInput.name,
+          email: args.userInput.email,
+          password: hashedPassword,
+          dateOfBirth: args.userInput.dateOfBirth,
+        });
+        await newUser.save();
+        return { ...newUser._doc };
+      }
     } catch (error) {
-      console.log('Yo error aako ho ra???? ->>>>>>>>', error);
+      throw new Error();
     }
   },
   sendEmail: async (args) => {
@@ -33,6 +42,23 @@ module.exports = RootValue = {
     } catch (err) {
       console.log('Yo error aako ho ra->>>>', err);
       throw new Error();
+    }
+  },
+  login: async ({ email, password }) => {
+    try {
+      const token = jwt.sign(
+        {
+          userID: 'hello',
+          email,
+        },
+        process.env.SECRET,
+        { expiresIn: '1h' }
+      );
+      return {
+        token: token,
+      };
+    } catch (error) {
+      console.log('Error aayo ra??->>>>', error);
     }
   },
 };
