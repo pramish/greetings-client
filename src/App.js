@@ -8,7 +8,7 @@ function App() {
       <div className='navbar-fixed'>
         <nav>
           <div className='nav-wrapper menu'>
-            <a href='#' className='brand-logo'>
+            <a href='https://usergreetings.netlify.app/' className='brand-logo'>
               Greetings
             </a>
             <ul id='nav-mobile' className='right hide-on-med-and-down'>
