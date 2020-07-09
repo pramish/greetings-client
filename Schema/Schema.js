@@ -7,7 +7,17 @@ module.exports = schema = buildSchema(`
     email: String!
     dateOfBirth: String!
     # friends: [User]
-  }
+	}
+	input EmailInput{
+		sender: String!
+		receiver: String!
+		message: String!
+	}
+	type Email{
+		sender: String!
+		receiver: String!
+		message: String!
+	}
   input UserInput {
     name: String!
     email: String!
@@ -17,7 +27,8 @@ module.exports = schema = buildSchema(`
     users: [User]
   }
   type RootMutation {
-    createUser(userInput: UserInput): User
+		createUser(userInput: UserInput): User
+		sendEmail(emailInput: EmailInput): Email
 	}
 	schema{
 		query:RootQuery
