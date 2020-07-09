@@ -9,6 +9,22 @@ app.use(bodyParser.json());
 const schema = require('./Schema/Schema');
 const rootValue = require('./RootValue/RootValue');
 const PORT = process.env.PORT || 5000;
+const isAuth = require('./auth/auth');
+
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'POST,GET,OPTIONS');
+  res.setHeader(
+    'Access-Control-Allow-Headers',
+    'Content-Type',
+    'Authorization'
+  );
+  if (req.method === 'OPTIONS') {
+    return res.sendStatus(200);
+  }
+  next();
+});
+app.use(isAuth);
 app.use(
   '/graphql',
   graphqlHTTP({
