@@ -17,12 +17,26 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  //   friends: [
-  //     {
-  //       type: mongoose.Schema.Types.ObjectId,
-  //       ref: 'User',
-  //     },
-  //   ],
+  friends: [
+    {
+      name: {
+        type: String,
+        required: true,
+      },
+      email: {
+        type: String,
+        required: true,
+      },
+      dateOfBirth: {
+        type: String,
+        required: true,
+      },
+      phoneNumber: {
+        type: String,
+        required: true,
+      },
+    },
+  ],
 });
 
 module.exports = User = mongoose.model('User', userSchema);
