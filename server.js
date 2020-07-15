@@ -3,8 +3,9 @@ require('dotenv').config();
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const { graphqlHTTP } = require('express-graphql');
-const expressPlayground = require('graphql-playground-middleware-express')
-  .default;
+// const expressPlayground = require('graphql-playground-middleware-express')
+//   .default;
+const path = require('path');
 
 const app = express();
 app.use(bodyParser.json());
@@ -35,7 +36,12 @@ app.use(
   })
 );
 
-app.get('/playground', expressPlayground({ endpoint: '/graphql' }));
+// app.get('/playground', expressPlayground({ endpoint: '/graphql' }));
+
+app.use(express.static('public'));
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, 'public', 'index.html'));
+});
 
 //Connects to Mongoose Database
 mongoose
