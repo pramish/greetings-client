@@ -35,13 +35,6 @@ app.use(
     graphiql: true,
   })
 );
-
-app.use(express.static('public'));
-app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, 'public', 'index.html'));
-});
-app.get('/playground', expressPlayground({ endpoint: '/graphql' }));
-
 //Connects to Mongoose Database
 mongoose
   .connect(process.env.MONGO_URI, {
