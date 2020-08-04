@@ -1,5 +1,6 @@
 import React from 'react';
 import { logout } from '../../utils';
+import { Header } from '../Header/Header';
 
 const DashBoard = (props) => {
   const handleLogout = () => {
@@ -8,6 +9,7 @@ const DashBoard = (props) => {
   };
   return (
     <div>
+      <Header />
       <h1>My Dashboard</h1>
       <button onClick={handleLogout}>Logout</button>
     </div>

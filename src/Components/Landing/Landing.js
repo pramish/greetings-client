@@ -1,6 +1,7 @@
 import React from 'react';
 import '../../App.css';
 import { login } from '../../utils';
+import { Header } from '../Header/Header';
 const Landing = (props) => {
   const [register, setRegister] = React.useState(true);
   const handleAuth = (e) => {
@@ -14,27 +15,7 @@ const Landing = (props) => {
   };
   return (
     <div>
-      <div className='navbar-fixed'>
-        <nav>
-          <div className='nav-wrapper menu'>
-            <a href='https://usergreetings.netlify.app/' className='brand-logo'>
-              Greetings
-            </a>
-            {/* <ul id='nav-mobile' className='right hide-on-med-and-down'>
-              <button
-                onClick={() => setAuthPage(() => !authPage)}
-                data-target='modal1'
-                className='account btn '
-                type='button'
-                name='action'
-              >
-                My Account
-              </button>
-            </ul> */}
-          </div>
-        </nav>
-      </div>
-
+      <Header />
       <>
         <div>
           <p className='logintext'>
