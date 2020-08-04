@@ -1,14 +1,59 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import '../../App.css';
 import { login } from '../../utils';
 import { Header } from '../Header/Header';
+import { Footer } from '../Footer/Footer';
 const Landing = (props) => {
-  const [register, setRegister] = React.useState(true);
-  const handleAuth = (e) => {
+  const [register, setRegister] = useState(true);
+  const [token, setToken] = useState(null);
+  const handleAuth = () => {
     if (register) {
-      // I have to register the account
+      const registerData = {
+        query: `{
+						createUser(userInput:{
+							name:"Another Pramish Luitel"
+							email:"admsin@gmail.com"
+							dateOfBirth:"20/12/1996"
+							password:"helloadmin"
+									})
+									{
+									name
+									}
+				 }`,
+      };
+      fetch('https://usergreetings.herokuapp.com/graphql', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(registerData),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+        });
     } else {
-      // I have to Signin into the account
+      // const loginData = {
+      //   query: `{
+      // 				login(loginInput:{
+      // 				email:"admin@gmail.com"
+      // 				password:"helloadmin"
+      // 				})
+      // 				{
+      // 				token
+      // 				}
+      // 			}`,
+      // };
+      // fetch('https://usergreetings.herokuapp.com/graphql', {
+      //   method: 'POST',
+      //   headers: { 'Content-Type': 'application/json' },
+      //   body: JSON.stringify(loginData),
+      // })
+      //   .then((res) => res.json())
+      //   .then((data) => {
+      //     console.log(data.data.login.token);
+      //     setToken(data.data.login.token);
+      //   });
+      // console.log(token);
+      // login(token);
       login();
       props.history.push('/dashboard');
     }
@@ -72,6 +117,7 @@ const Landing = (props) => {
           </div>
         </form>
       </>
+      <Footer />
     </div>
   );
 };

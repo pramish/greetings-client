@@ -1,5 +1,5 @@
 export const login = () => {
-  localStorage.setItem('Token_Key', 'Token_Value');
+  localStorage.setItem('Token_Key', 'My Custom Tokens');
 };
 export const logout = () => {
   localStorage.removeItem('Token_Key');
