@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const User = require('../models/User');
 const SendEmail = require('../helper/send_email_helper');
+const sendMessage = require('../helper/send_message_helper');
 module.exports = RootValue = {
   users: async () => {
     const user = await User.find();
@@ -71,6 +72,18 @@ module.exports = RootValue = {
         token: token,
         tokenExpiration: 1,
       };
+    } catch (error) {
+      throw new Error(error);
+    }
+  },
+  sendSms: async (args) => {
+    try {
+      console.log(args.smsInput.receiverPhone);
+      await sendMessage(
+        args.smsInput.senderPhone,
+        args.smsInput.receiverPhone,
+        args.smsInput.message
+      );
     } catch (error) {
       throw new Error(error);
     }

@@ -22,7 +22,8 @@
     "graphql": "^15.3.0",
     "graphql-playground-middleware-express": "^1.7.18",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.9.22"
+    "mongoose": "^5.9.22",
+    "twilio": "^3.48.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.4"
