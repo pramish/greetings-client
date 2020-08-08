@@ -36,7 +36,7 @@ const Landing = (props) => {
       })
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
+          setRegister(!register);
         });
     } else {
       const loginData = {
@@ -46,7 +46,8 @@ const Landing = (props) => {
       				password:"${password.current.value}"
       				})
       				{
-      				token
+							token
+							userId
       				}
       			}`,
       };
