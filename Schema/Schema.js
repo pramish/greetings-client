@@ -23,6 +23,18 @@ module.exports = schema = buildSchema(`
 		receiverPhone: String!
 		message: String!
 	}
+	type Friends{
+		name: String!
+		email: String!
+		date_of_birth: String!
+		phone_number:String!
+	}
+	input FriendsInput{
+		name: String!
+		email: String!
+		date_of_birth: String!
+		phone_number:String!
+	}
 	input EmailInput{
 		sender: String!
 		receiver: String!
@@ -39,7 +51,7 @@ module.exports = schema = buildSchema(`
 		password: String!
 	}
 	type AuthData{
-		userId: ID
+		userId: ID!
         token: String!
         tokenExpiration: Int!
 	}
@@ -51,6 +63,7 @@ module.exports = schema = buildSchema(`
 		createUser(userInput: UserInput): User
 		sendEmail(emailInput: EmailInput): Email
 		sendSms(smsInput:SmsInput): sms
+		addFriends(friendsInput:FriendsInput): Friends
 	}
 	schema {
 		query:RootQuery
