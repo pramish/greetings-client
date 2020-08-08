@@ -3,6 +3,9 @@ require('dotenv').config();
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const { graphqlHTTP } = require('express-graphql');
+const expressPlayground = require('graphql-playground-middleware-express')
+  .default;
+const path = require('path');
 
 const app = express();
 app.use(bodyParser.json());
@@ -10,7 +13,6 @@ const schema = require('./Schema/Schema');
 const rootValue = require('./RootValue/RootValue');
 const PORT = process.env.PORT || 5000;
 const isAuth = require('./auth/auth');
-
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST,GET,OPTIONS');
@@ -33,7 +35,7 @@ app.use(
     graphiql: true,
   })
 );
-
+//Connects to Mongoose Database
 mongoose
   .connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
