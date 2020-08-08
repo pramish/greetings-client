@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import { isLogin } from '../utils';
+import { isLogin } from '../utils/handlle_auth';
 
 export const PrivateComponent = ({ component: Component, ...rest }) => {
   return (

@@ -1,8 +1,8 @@
 import React from 'react';
-import { logout } from '../../utils';
 import { Header } from '../Header/Header';
 import { Footer } from '../Footer/Footer';
 import { DashboardItem } from '../DashboardComponents/DashboardItem';
+import { logout } from '../../utils/handlle_auth';
 
 const DashBoard = (props) => {
   const handleLogout = () => {
