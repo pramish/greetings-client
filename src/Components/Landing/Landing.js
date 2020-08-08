@@ -11,17 +11,18 @@ const Landing = (props) => {
   const password = createRef('');
   const name = createRef('');
   const date_of_birth = createRef('');
-
   const handleAuth = (e) => {
     e.preventDefault();
     if (register) {
       const registerData = {
-        query: `{
-						createUser(userInput:{
-							name:"Another Pramish Luitel"
-							email:"admin@gmail.com"
-							dateOfBirth:"20/12/1996"
-							password:"helloadmin"
+        query: `
+				mutation
+						{
+							createUser(userInput:{
+							name:"${name.current.value}"
+							email:"${email.current.value}"
+							dateOfBirth:"${date_of_birth.current.value}"
+							password:"${password.current.value}"
 									})
 									{
 									name
@@ -65,8 +66,6 @@ const Landing = (props) => {
           props.history.push('/dashboard');
         });
     }
-    console.log(email.current.value);
-    console.log(password.current.value);
   };
   return (
     <div>
@@ -113,7 +112,7 @@ const Landing = (props) => {
                 </div>
                 <div className='input-field col s6 fields'>
                   <input
-                    type='text'
+                    type='date'
                     id='date'
                     className='validate'
                     ref={date_of_birth}
