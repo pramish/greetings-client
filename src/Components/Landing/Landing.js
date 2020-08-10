@@ -1,11 +1,12 @@
 import React, { useState, useContext, createRef } from 'react';
+import '../../App.css';
 import { Header } from '../Header/Header';
 import { Footer } from '../Footer/Footer';
-
-import '../../App.css';
 import { AuthContext } from '../../Context/auth-context';
+import { Spinner } from '../Spinner/Spinner';
 const Landing = (props) => {
   const [register, setRegister] = useState(true);
+  const [loading, setLoading] = useState(false);
   const { dispatch } = useContext(AuthContext);
   const email = createRef('');
   const password = createRef('');
@@ -14,6 +15,8 @@ const Landing = (props) => {
   const handleAuth = (e) => {
     e.preventDefault();
     if (register) {
+      setLoading(!loading);
+
       const registerData = {
         query: `
 				mutation
@@ -37,8 +40,10 @@ const Landing = (props) => {
         .then((res) => res.json())
         .then((data) => {
           setRegister(!register);
+          setLoading(false);
         });
     } else {
+      setLoading(!loading);
       const loginData = {
         query: `{
       				login(loginInput:{
@@ -64,6 +69,7 @@ const Landing = (props) => {
               token: data.data.login.token,
             },
           });
+          setLoading(false);
           props.history.push('/dashboard');
         });
     }
@@ -128,13 +134,17 @@ const Landing = (props) => {
           </div>
 
           <div className='submitbtn'>
-            <button
-              className='btn waves-effect waves-light'
-              type='submit'
-              name='action'
-            >
-              {register ? 'Register' : 'Login'}
-            </button>
+            {loading ? (
+              <Spinner />
+            ) : (
+              <button
+                className='btn waves-effect waves-light'
+                type='submit'
+                name='action'
+              >
+                {register ? 'Register' : 'Login'}
+              </button>
+            )}
             <div>
               <p
                 onClick={() => setRegister(() => !register)}
