@@ -1,13 +1,15 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
+
 const User = require('../models/User');
+const Friend = require('../models/Friend');
 const SendEmail = require('../helper/send_email_helper');
 const sendMessage = require('../helper/send_message_helper');
+
 module.exports = RootValue = {
   users: async () => {
-    const user = await User.find();
-    console.log(user);
-    return user;
+    const users = await User.find();
+    return users;
   },
   createUser: async (args) => {
     try {
@@ -100,26 +102,26 @@ module.exports = RootValue = {
       const date_of_birth = args.friendsInput.date_of_birth;
       const phone_number = args.friendsInput.phone_number;
 
-      console.log(userId);
-      console.log(name);
-      console.log(email);
-      console.log(date_of_birth);
-      console.log(phone_number);
-      User.findByIdAndUpdate(
-        { _id: userId },
+      const friend = new Friend({
+        name,
+        email,
+        date_of_birth,
+        phone_number,
+      });
+
+      await friend.save();
+
+      await User.findOneAndUpdate(
         {
-          name: name,
-          email: email,
-          date_of_birth: date_of_birth,
-          phone_number: phone_number,
+          _id: userId,
         },
-        (err, res) => {
-          if (err) {
-            throw new Error(err);
-          }
-          return { res };
+        {
+          $push: {
+            friends: friend._id,
+          },
         }
       );
+      return { ...friend._doc };
     } catch (e) {
       throw new Error(e);
     }
