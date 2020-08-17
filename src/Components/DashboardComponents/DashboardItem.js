@@ -1,6 +1,35 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { AddFriendsForm } from './AddFriendsForm/AddFriendsForm';
 export const DashboardItem = (props) => {
+  const getFriends = () => {
+    const Token = localStorage.getItem('Token');
+    const getFriendsData = {
+      query: `
+						{
+							myFriends{
+							name
+							email
+							date_of_birth
+							phone_number
+									}
+				 }`,
+    };
+    fetch('https://usergreetings.herokuapp.com/graphql', {
+      method: 'POST',
+      body: JSON.stringify(getFriendsData),
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + Token,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        // setLoading(false);
+        // props.history.push('/dashboard');
+      });
+  };
   return (
     <div>
       <div className='row'>
@@ -12,8 +41,11 @@ export const DashboardItem = (props) => {
               <p>Mobile</p>
             </div>
             <div className='card-action'>
-              <a href='/'>Edit</a>
-              <a href='/'>Delete</a>
+              <Link to='/'>Edit</Link>
+              <Link to='/'>Delete</Link>
+              <Link onClick={getFriends} to='/dashboard'>
+                Get Friends
+              </Link>
             </div>
           </div>
         </div>

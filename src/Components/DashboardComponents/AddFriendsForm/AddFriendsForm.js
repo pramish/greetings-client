@@ -6,6 +6,8 @@ export const AddFriendsForm = (props) => {
   const phone_number = createRef();
   const handleAddFriends = (e) => {
     e.preventDefault();
+    const Token = localStorage.getItem('Token');
+    console.log(Token);
     const addFriendData = {
       query: `
 		mutation
@@ -24,7 +26,10 @@ export const AddFriendsForm = (props) => {
     };
     fetch('https://usergreetings.herokuapp.com/graphql', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + Token,
+      },
       body: JSON.stringify(addFriendData),
     })
       .then((res) => res.json())
@@ -88,7 +93,7 @@ export const AddFriendsForm = (props) => {
             className='btn waves-effect waves-light'
             type='submit'
             name='action'
-            disabled
+            // disabled
           >
             Add Friend
           </button>
