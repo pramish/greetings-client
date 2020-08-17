@@ -93,10 +93,10 @@ module.exports = RootValue = {
   },
   addFriends: async (args, req) => {
     try {
-      const isAuth = await req.isAuth;
-      if (!isAuth) throw new Error('Please autheticate');
-      const userId = await req.userId;
-
+//       const isAuth = await req.isAuth;
+//       if (!isAuth) throw new Error('Please autheticate');
+//       const userId = await req.userId;
+      const userId = "5f39241f71c02700173945e5";
       const name = args.friendsInput.name;
       const email = args.friendsInput.email;
       const date_of_birth = args.friendsInput.date_of_birth;
