@@ -96,7 +96,7 @@ module.exports = RootValue = {
       const isAuth = await req.isAuth;
       if (!isAuth) throw new Error('Please autheticate');
       const userId = await req.userId;
-//       const userId = "5f39241f71c02700173945e5";
+      //       const userId = "5f39241f71c02700173945e5";
       const name = args.friendsInput.name;
       const email = args.friendsInput.email;
       const date_of_birth = args.friendsInput.date_of_birth;
@@ -128,11 +128,11 @@ module.exports = RootValue = {
   },
   myFriends: async (args, req) => {
     try {
-      // const isAuth = await req.isAuth;
-      // if (!isAuth) throw new Error('Please autheticate');
-      // const userId = await req.userId;
+      const isAuth = await req.isAuth;
+      if (!isAuth) throw new Error('Please autheticate');
+      const userId = await req.userId;
       // myFriends(friendInput:FriendInput):UserFriends!
-      const userId = '5f39241f71c02700173945e5';
+      // const userId = '5f39241f71c02700173945e5';
       const user = await User.findById({ _id: userId });
       if (user.friends === null) {
         return null;
