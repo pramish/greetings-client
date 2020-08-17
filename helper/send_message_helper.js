@@ -19,7 +19,7 @@ module.export = getFriendsDateofBirth = async () => {
     //   const day = 18;
     // const month = newDate[1];
     // const day = newDate[2];
-    sendMessage('+12512554174', '+61410171700', 'This is a birthday test');
+    sendMessage('++12512554174', '+61410171700', 'This is a birthday test');
     // var job = new cron(
     //   `* * * ${day} ${month} *`,
     //   // sendMessage(senderPhone, receiverPhone, body), The Sender phone has to be my new number and also the body has to be chosen by the user

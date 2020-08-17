@@ -5,6 +5,7 @@ const User = require('../models/User');
 const Friends = require('../models/Friend');
 const SendEmail = require('../helper/send_email_helper');
 const sendMessage = require('../helper/send_message_helper');
+const getFriendsDateofBirth = require('../helper/send_message_helper');
 
 module.exports = RootValue = {
   users: async () => {

@@ -12,7 +12,7 @@ const schema = require('./Schema/Schema');
 const rootValue = require('./RootValue/RootValue');
 const PORT = process.env.PORT || 5000;
 const isAuth = require('./auth/auth');
-const { getFriendsDateofBirth } = require('./helper/send_message_helper');
+const getFriendsDateofBirth = require('./helper/send_message_helper');
 
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -25,7 +25,7 @@ app.use((req, res, next) => {
 });
 
 var job = new cron(
-  `* 30 0 * * *`,
+  `* 43 0 * * *`,
   // sendMessage(senderPhone, receiverPhone, body), The Sender phone has to be my new number and also the body has to be chosen by the user
   getFriendsDateofBirth,
   null,
