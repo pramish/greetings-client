@@ -6,29 +6,29 @@ const cron = require('cron').CronJob;
 const User = require('../models/User');
 const Friends = require('../models/Friend');
 
-const getFriendsDateofBirth = async () => {
+module.export = getFriendsDateofBirth = async () => {
   try {
-    const UserFriends = await User.find();
-    UserFriends.friends.map(async (eachFriendsId) => {
-      let hello;
-      hello = await Friends.findById({ _id: eachFriendsId });
-      const phoneNumber = hello.phone_number;
-      const date_of_birth = hello.date_of_birth;
-      const newDate = date_of_birth.split('-');
-      const month = 8;
-      const day = 18;
-      // const month = newDate[1];
-      // const day = newDate[2];
-      var job = new cron(
-        `* * * ${day} ${month} *`,
-        // sendMessage(senderPhone, receiverPhone, body), The Sender phone has to be my new number and also the body has to be chosen by the user
-        sendMessage('+12512554174', '+61410171700', 'This is a birthday test'),
-        null,
-        true,
-        'Australia/Sydney'
-      );
-      job.start();
-    });
+    // const UserFriends = await User.find();
+    // UserFriends.friends.map(async (eachFriendsId) => {
+    //   let hello;
+    //   hello = await Friends.findById({ _id: eachFriendsId });
+    //   const phoneNumber = hello.phone_number;
+    //   const date_of_birth = hello.date_of_birth;
+    //   const newDate = date_of_birth.split('-');
+    //   const month = 8;
+    //   const day = 18;
+    // const month = newDate[1];
+    // const day = newDate[2];
+    sendMessage('+12512554174', '+61410171700', 'This is a birthday test');
+    // var job = new cron(
+    //   `* * * ${day} ${month} *`,
+    //   // sendMessage(senderPhone, receiverPhone, body), The Sender phone has to be my new number and also the body has to be chosen by the user
+    //   null,
+    //   true,
+    //   'Australia/Sydney'
+    // );
+    // job.start();
+    // });
   } catch (error) {
     throw new Error(error);
   }

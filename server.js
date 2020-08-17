@@ -3,9 +3,8 @@ require('dotenv').config();
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const { graphqlHTTP } = require('express-graphql');
-const expressPlayground = require('graphql-playground-middleware-express')
-  .default;
-const path = require('path');
+
+const cron = require('cron').CronJob;
 
 const app = express();
 app.use(bodyParser.json());
@@ -13,6 +12,8 @@ const schema = require('./Schema/Schema');
 const rootValue = require('./RootValue/RootValue');
 const PORT = process.env.PORT || 5000;
 const isAuth = require('./auth/auth');
+const { getFriendsDateofBirth } = require('./helper/send_message_helper');
+
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST,GET,OPTIONS');
@@ -22,6 +23,17 @@ app.use((req, res, next) => {
   }
   next();
 });
+
+var job = new cron(
+  `* 30 0 * * *`,
+  // sendMessage(senderPhone, receiverPhone, body), The Sender phone has to be my new number and also the body has to be chosen by the user
+  getFriendsDateofBirth,
+  null,
+  true,
+  'Australia/Sydney'
+);
+job.start();
+
 app.use(isAuth);
 app.use(
   '/graphql',
