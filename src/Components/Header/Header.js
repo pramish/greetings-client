@@ -7,9 +7,8 @@ export const Header = () => {
       <nav>
         <div className='nav-wrapper menu'>
           <Link to='/'>
-            <a href='https://usergreetings.netlify.app/' className='brand-logo'>
-              Greetings
-            </a>
+            Greetings
+            {/* <h1>Greetings</h1> */}
           </Link>
         </div>
       </nav>

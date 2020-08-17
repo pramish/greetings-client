@@ -7,7 +7,6 @@ export const AddFriendsForm = (props) => {
   const handleAddFriends = (e) => {
     e.preventDefault();
     const Token = localStorage.getItem('Token');
-    console.log(Token);
     const addFriendData = {
       query: `
 		mutation
