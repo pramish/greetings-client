@@ -8,7 +8,15 @@ module.exports = schema = buildSchema(`
 		dateOfBirth: String!
 		password: String!
 	}
-	type userFriends{
+
+	input UserInput {
+		name: String!
+		email: String!
+		dateOfBirth: String!
+		password: String!
+	}
+	
+	type UserFriends{
 		_id: ID!
 		name: String!
 		email: String!
@@ -16,11 +24,22 @@ module.exports = schema = buildSchema(`
 		phone_number:String!
 	}
 
+	input FriendInput {
+		id: ID!
+	}
+
 	type Email{
 		sender: String!
 		receiver: String!
 		message: String!
 	}
+
+	input EmailInput{
+		sender: String!
+		receiver: String!
+		message: String!
+	}
+
 	type sms{
 		senderPhone: String!
 		receiverPhone: String!
@@ -32,7 +51,7 @@ module.exports = schema = buildSchema(`
 		message: String!
 	}
 	type Friends{
-		_id: ID!
+		id: ID!
 		name: String!
 		email: String!
 		date_of_birth: String!
@@ -44,21 +63,12 @@ module.exports = schema = buildSchema(`
 		date_of_birth: String!
 		phone_number:String!
 	}
-	input EmailInput{
-		sender: String!
-		receiver: String!
-		message: String!
-	}
+	
 	input LoginInput{
 		email: String!
 		password: String!
 	}
-	input UserInput {
-		name: String!
-		email: String!
-		dateOfBirth: String!
-		password: String!
-	}
+	
 	type AuthData{
 		userId: ID!
         token: String!
@@ -67,6 +77,7 @@ module.exports = schema = buildSchema(`
 	type RootQuery {
 		users: [User!]
 		login(loginInput:LoginInput):AuthData!
+		myFriends:[UserFriends!]
 	}
 	type RootMutation {
 		createUser(userInput: UserInput): User

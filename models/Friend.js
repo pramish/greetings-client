@@ -19,4 +19,4 @@ const friendsSchema = new mongoose.Schema({
   },
 });
 
-module.exports = User = mongoose.model('Friends', friendsSchema);
+module.exports = Friend = mongoose.model('Friends', friendsSchema);

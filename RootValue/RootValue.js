@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
 const User = require('../models/User');
-const Friend = require('../models/Friend');
+const Friends = require('../models/Friend');
 const SendEmail = require('../helper/send_email_helper');
 const sendMessage = require('../helper/send_message_helper');
 
@@ -122,6 +122,28 @@ module.exports = RootValue = {
         }
       );
       return { ...friend._doc };
+    } catch (e) {
+      throw new Error(e);
+    }
+  },
+  myFriends: async (args, req) => {
+    try {
+      const isAuth = await req.isAuth;
+      if (!isAuth) throw new Error('Please autheticate');
+      const userId = await req.userId;
+      // myFriends(friendInput:FriendInput):UserFriends!
+      // const userId = '5f39241f71c02\700173945e5';
+      const user = await User.findById({ _id: userId });
+      if (user.friends === null) {
+        return null;
+      } else {
+        return user.friends.map(async (eachFriendsId) => {
+          let hello;
+          hello = await Friends.findById({ _id: eachFriendsId });
+          console.log(hello);
+          return hello;
+        });
+      }
     } catch (e) {
       throw new Error(e);
     }
