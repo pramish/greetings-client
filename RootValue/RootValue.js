@@ -128,11 +128,11 @@ module.exports = RootValue = {
   },
   myFriends: async (args, req) => {
     try {
-      const isAuth = await req.isAuth;
-      if (!isAuth) throw new Error('Please autheticate');
-      const userId = await req.userId;
+      // const isAuth = await req.isAuth;
+      // if (!isAuth) throw new Error('Please autheticate');
+      // const userId = await req.userId;
       // myFriends(friendInput:FriendInput):UserFriends!
-      // const userId = '5f39241f71c02\700173945e5';
+      const userId = '5f39241f71c02700173945e5';
       const user = await User.findById({ _id: userId });
       if (user.friends === null) {
         return null;
@@ -140,7 +140,11 @@ module.exports = RootValue = {
         return user.friends.map(async (eachFriendsId) => {
           let hello;
           hello = await Friends.findById({ _id: eachFriendsId });
-          console.log(hello);
+          // const date = hello.date_of_birth;
+          // const newDate = date.split('-');
+          // const month = newDate[1];
+          // const day = newDate[2];
+          // console.log('Month is ' + month + ' and Day is ' + day);
           return hello;
         });
       }
