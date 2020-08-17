@@ -19,6 +19,7 @@ module.export = getFriendsDateofBirth = async () => {
     //   const day = 18;
     // const month = newDate[1];
     // const day = newDate[2];
+    console.log('Am I running');
     sendMessage('++12512554174', '+61410171700', 'This is a birthday test');
     // var job = new cron(
     //   `* * * ${day} ${month} *`,
@@ -35,15 +36,19 @@ module.export = getFriendsDateofBirth = async () => {
 };
 
 const sendMessage = async (senderPhone, receiverPhone, body) => {
-  await client.messages
-    .create({
-      body,
-      to: receiverPhone,
-      from: senderPhone,
-    })
-    .then((data) => {
-      console.log(data.sid);
-    });
+  try {
+    await client.messages
+      .create({
+        body,
+        to: receiverPhone,
+        from: senderPhone,
+      })
+      .then((data) => {
+        console.log(data.sid);
+      });
+  } catch (error) {
+    throw new Error(error);
+  }
 };
 
 module.exports = sendMessage;
