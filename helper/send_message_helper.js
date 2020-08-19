@@ -6,7 +6,7 @@ const cron = require('cron').CronJob;
 const User = require('../models/User');
 const Friends = require('../models/Friend');
 
-module.export = getFriendsDateofBirth = async () => {
+function getFriendsDateofBirth() {
   try {
     // const UserFriends = await User.find();
     // UserFriends.friends.map(async (eachFriendsId) => {
@@ -20,7 +20,11 @@ module.export = getFriendsDateofBirth = async () => {
     // const month = newDate[1];
     // const day = newDate[2];
     console.log('Am I running');
-    sendMessage('++12512554174', '+61410171700', 'This is a birthday test');
+    sendMessage(
+      '++12512554174',
+      '+61410171700',
+      'This is a Pramish birthday test'
+    );
     // var job = new cron(
     //   `* * * ${day} ${month} *`,
     //   // sendMessage(senderPhone, receiverPhone, body), The Sender phone has to be my new number and also the body has to be chosen by the user
@@ -33,7 +37,7 @@ module.export = getFriendsDateofBirth = async () => {
   } catch (error) {
     throw new Error(error);
   }
-};
+}
 
 const sendMessage = async (senderPhone, receiverPhone, body) => {
   try {
@@ -51,4 +55,4 @@ const sendMessage = async (senderPhone, receiverPhone, body) => {
   }
 };
 
-module.exports = sendMessage;
+module.exports = { getFriendsDateofBirth, sendMessage };

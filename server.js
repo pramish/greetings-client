@@ -25,15 +25,11 @@ app.use((req, res, next) => {
 });
 
 var job = new cron(
-  `* 01 01 * * *`,
+  `55 25 09 * * *`,
   // sendMessage(senderPhone, receiverPhone, body), The Sender phone has to be my new number and also the body has to be chosen by the user
   () => {
     // console.log('AM I running nowwww');
-    getFriendsDateofBirth(
-      '+12512554174',
-      '+61410171700',
-      'This is a birthday test'
-    );
+    getFriendsDateofBirth();
   }
   // null,
   // true,
