@@ -1,11 +1,14 @@
-import React, { createRef } from 'react';
+import React, { createRef, useState } from 'react';
+import { Spinner } from '../../Spinner/Spinner';
 export const AddFriendsForm = (props) => {
   const name = createRef();
   const email = createRef();
   const date = createRef();
   const phone_number = createRef();
+  const [add, setAdd] = useState(false);
   const handleAddFriends = (e) => {
     e.preventDefault();
+    setAdd(true);
     const Token = localStorage.getItem('Token');
     const addFriendData = {
       query: `
@@ -33,7 +36,8 @@ export const AddFriendsForm = (props) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log('Friends Added. ', data);
+        console.log('What is the value of add???? ', add);
+        setAdd(false);
       });
   };
   return (
@@ -87,16 +91,19 @@ export const AddFriendsForm = (props) => {
             <label htmlFor='phone_number'>Phone Number</label>
           </div>
         </div>
-        <div className='submitbtn'>
-          <button
-            className='btn waves-effect waves-light'
-            type='submit'
-            name='action'
-            // disabled
-          >
-            Add Friend
-          </button>
-        </div>
+        {add ? (
+          <Spinner />
+        ) : (
+          <div className='submitbtn'>
+            <button
+              className='btn waves-effect waves-light'
+              type='submit'
+              name='action'
+            >
+              Add Friend
+            </button>
+          </div>
+        )}
       </form>
     </div>
   );
