@@ -1,14 +1,26 @@
-# Greetings
+Greetings-> An automated way of sending a sms for your beloved ones
 
-## Contributer
-
-[Pramish Luitel](https://pramishluitel.netlify.app/)
+Developed By: [Pramish Luitel](https://pramishluitel.netlify.com)
 
 This application is developed using React, express-graphql, GraphQL and MongoDB.
 
-Server is Deployed to Heroku and Frontend is deployed to Netlify
+`server` branch is Deployed to Heroku.
 
 If you want to use it, simply clone the project and start coding.
-Make sure you add the MONGO_URL and SECRET in .env file.
 
-# Happy Coding!
+Make sure you add the following:
+
+- `MONGO_URL`
+- `SECRET`
+- `API_KEY` for [Send Grid](https://sendgrid.com/docs/for-developers/sending-email/quickstart-nodejs/)
+- `ACCOUNT_SID` and `AUTH_TOKEN` for [Twilio SMS](https://www.twilio.com/)
+
+in the `.env` file.
+
+Runs `npm install` for the `server` to install all the dependencies.
+
+Run `npm run dev` for `nodemon` for the `server`.
+
+Please do not try to push into the master and server branch. If you would like to add, please create new branch and push.
+
+Happy Coding!
