@@ -1,0 +1,39 @@
+.menu {
+	background-color: rgb(44, 63, 126);
+}
+
+.account {
+	background-color: rgb(238, 221, 221);
+	color: black;
+	border-radius: 50px;
+}
+
+.account:hover {
+	background-color: rgb(219, 219, 95);
+	color: black;
+}
+
+.authform {
+	display: flex;
+	/* flex-wrap: wrap; */
+	flex-flow: column;
+	align-content: center;
+	justify-content: space-evenly;
+	/* align-items: stretch; */
+}
+
+.submitbtn {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+}
+
+.logintext {
+	font-size: xx-large;
+	cursor: pointer;
+}
+
+.fields {
+	width: auto;
+}
