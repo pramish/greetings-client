@@ -1,8 +1,9 @@
-Greetings
+Greetings-> An automated way of sending a sms for your beloved ones
 
 Developed By: [Pramish Luitel](https://pramishluitel.netlify.com)
 
 This application is developed using React, express-graphql, GraphQL and MongoDB.
+
 
 `server` branch is Deployed to Heroku and `frontend` branch is deployed to Netlify.
 
