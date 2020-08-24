@@ -1,0 +1,10 @@
+.menu {
+	background-color: black;
+	font-size: x-large;
+}
+
+.menu-item {
+	margin: auto 20px auto 20px;
+	display: flex;
+	justify-content: space-between;
+}

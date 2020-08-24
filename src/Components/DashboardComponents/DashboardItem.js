@@ -46,7 +46,7 @@ export const DashboardItem = (props) => {
   const friends = myFriends.map((eachFriends) => (
     <div className='row'>
       <div className='col s12 m6'>
-        <div className='card blue-grey darken-1'>
+        <div className='card blue-grey darken-1 dashboard-container-item'>
           <div className='card-content white-text'>
             <span className='card-title'>{eachFriends.name}</span>
             <p>{eachFriends.email}</p>
@@ -56,9 +56,6 @@ export const DashboardItem = (props) => {
           <div className='card-action'>
             <Link to='/'>Edit</Link>
             <Link to='/'>Delete</Link>
-            {/* <Link onClick={getFriends} to='/dashboard'>
-                Get Friends
-              </Link> */}
           </div>
         </div>
       </div>
