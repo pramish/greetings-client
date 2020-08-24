@@ -23,4 +23,6 @@ Run `npm run dev` for `nodemon` for the `server` and `yarn start` to run the `cl
 
 Frontend is build using `React` and Backend is built using `NodeJS`, `Express`, `Express Graphql` and `MongoDB` as a database
 
+Please do not try to push into the master and server branch. If you would like to add, please create new branch and push.
+
 Happy Coding!
