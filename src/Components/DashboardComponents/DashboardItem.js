@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { AddFriendsForm } from './AddFriendsForm/AddFriendsForm';
 import { SwitchFriendsComponent } from './ToggleFriends/SwitchFriendsComponent';
+import '../../App.css';
 export const DashboardItem = (props) => {
   const [myFriends, setMyFriends] = useState([]);
-
   const [addFriend, setAddFriend] = useState();
   const [getFriend, setGetFriend] = useState();
 
@@ -46,8 +46,8 @@ export const DashboardItem = (props) => {
   const friends = myFriends.map((eachFriends) => (
     <div className='row'>
       <div className='col s12 m6'>
-        <div className='card blue-grey darken-1 dashboard-container-item'>
-          <div className='card-content white-text'>
+        <div className=' card-content card blue-grey darken-1'>
+          <div className=' white-text'>
             <span className='card-title'>{eachFriends.name}</span>
             <p>{eachFriends.email}</p>
             <p>{eachFriends.date_of_birth}</p>
@@ -65,7 +65,7 @@ export const DashboardItem = (props) => {
   //   console.log('Hello haha', myFriends);
   // };
   return (
-    <div>
+    <div className='friends-component'>
       <SwitchFriendsComponent
         handleAddFriend={addFriends}
         handleGetFriend={getFriends}

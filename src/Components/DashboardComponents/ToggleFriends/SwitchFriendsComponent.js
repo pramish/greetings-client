@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import '../../../App.css';
 
 export const SwitchFriendsComponent = (props) => {
   const [addFriend, setAddFriend] = useState(true);
@@ -12,7 +13,7 @@ export const SwitchFriendsComponent = (props) => {
     props.handleGetFriend(getFriend);
   };
   return (
-    <div>
+    <div className='toggle-button'>
       <button
         className='btn waves-effect waves-light'
         type='button'

@@ -13,19 +13,7 @@
 }
 
 .authform {
-	display: flex;
-	/* flex-wrap: wrap; */
-	flex-flow: column;
-	align-content: center;
-	justify-content: space-evenly;
-	/* align-items: stretch; */
-}
-
-.submitbtn {
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: center;
-	align-items: center;
+	width: 30rem;
 }
 
 .logintext {
@@ -35,4 +23,10 @@
 
 .fields {
 	width: auto;
+}
+
+.form-box-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }

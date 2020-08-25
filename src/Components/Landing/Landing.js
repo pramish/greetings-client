@@ -78,83 +78,87 @@ const Landing = (props) => {
     <div>
       <Header />
       <>
-        <div>
-          <p className='logintext'>
-            {register ? 'Create Your Account' : 'Access your account'}
-          </p>
-        </div>
-        <form onSubmit={handleAuth}>
-          <div className='authform'>
-            <div className='input-field col s6 fields'>
-              <input
-                id='email'
-                type='text'
-                className='validate'
-                required
-                ref={email}
-              />
-              <label htmlFor='email'>Email Address</label>
-            </div>
-            <div className='input-field col s6 fields'>
-              <input
-                id='password'
-                type='password'
-                className='validate'
-                ref={password}
-                required
-              />
-              <label htmlFor='password'>Password</label>
-            </div>
-            {register ? (
-              <>
-                <div className='input-field col s6 fields'>
-                  <input
-                    id='name'
-                    type='text'
-                    className='validate'
-                    ref={name}
-                    required
-                  />
-                  <label htmlFor='name'>Name</label>
-                </div>
-                <div className='input-field col s6 fields'>
-                  <input
-                    type='date'
-                    id='date'
-                    className='validate'
-                    ref={date_of_birth}
-                    required
-                  />
-                  <label htmlFor='date'>Date of Birth</label>
-                </div>
-              </>
-            ) : (
-              <></>
-            )}
-          </div>
-
-          <div className='submitbtn'>
-            {loading ? (
-              <Spinner />
-            ) : (
-              <button
-                className='btn waves-effect waves-light'
-                type='submit'
-                name='action'
-              >
-                {register ? 'Register' : 'Login'}
-              </button>
-            )}
+        <div className='form-box-container'>
+          <form onSubmit={handleAuth}>
             <div>
-              <p
-                onClick={() => setRegister(() => !register)}
-                className='logintext'
-              >
-                {register ? 'Already have an account?' : "Don't Have account?"}
+              <p className='logintext'>
+                {register ? 'Create Your Account' : 'Access your account'}
               </p>
             </div>
-          </div>
-        </form>
+            <div className='authform'>
+              <div className='input-field col s6 fields'>
+                <input
+                  id='email'
+                  type='text'
+                  className='validate'
+                  required
+                  ref={email}
+                />
+                <label htmlFor='email'>Email Address</label>
+              </div>
+              <div className='input-field col s6 fields'>
+                <input
+                  id='password'
+                  type='password'
+                  className='validate'
+                  ref={password}
+                  required
+                />
+                <label htmlFor='password'>Password</label>
+              </div>
+              {register ? (
+                <>
+                  <div className='input-field col s6 fields'>
+                    <input
+                      id='name'
+                      type='text'
+                      className='validate'
+                      ref={name}
+                      required
+                    />
+                    <label htmlFor='name'>Name</label>
+                  </div>
+                  <div className='input-field col s6 fields'>
+                    <input
+                      type='date'
+                      id='date'
+                      className='validate'
+                      ref={date_of_birth}
+                      required
+                    />
+                    <label htmlFor='date'>Date of Birth</label>
+                  </div>
+                </>
+              ) : (
+                <></>
+              )}
+            </div>
+
+            <div className='submitbtn'>
+              {loading ? (
+                <Spinner />
+              ) : (
+                <button
+                  className='btn waves-effect waves-light'
+                  type='submit'
+                  name='action'
+                >
+                  {register ? 'Register' : 'Login'}
+                </button>
+              )}
+              <div>
+                <p
+                  onClick={() => setRegister(() => !register)}
+                  className='logintext'
+                >
+                  {register
+                    ? 'Already have an account?'
+                    : "Don't Have account?"}
+                </p>
+              </div>
+            </div>
+          </form>
+        </div>
       </>
       <Footer />
     </div>
