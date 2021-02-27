@@ -20,7 +20,7 @@ app.use((req, res, next) => {
   if (req.method === "OPTIONS") {
     return res.sendStatus(200);
   }
-  next();
+  next()
 });
 
 const Cron_Job = new cron("00 00 6 * * *", () => {
