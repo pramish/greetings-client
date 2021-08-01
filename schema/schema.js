@@ -51,7 +51,7 @@ module.exports = schema = buildSchema(`
 		message: String!
 	}
 	type Friends{
-		id: ID!
+		_id: ID!
 		name: String!
 		email: String!
 		date_of_birth: String!

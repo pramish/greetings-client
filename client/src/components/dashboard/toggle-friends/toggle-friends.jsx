@@ -1,35 +1,74 @@
-import React, { useState } from "react";
-
-export const ToggleFriends = (props) => {
-  const [addFriend, setAddFriend] = useState(true);
-  const [getFriend, setGetFriend] = useState(true);
-  const handleAddFriend = () => {
-    setAddFriend(!addFriend);
-    props.handleAddFriend(addFriend);
-  };
-  const handleGetFriend = () => {
-    setGetFriend(!getFriend);
-    props.handleGetFriend(getFriend);
-  };
+import React, { useState, useEffect } from "react";
+import { showFriendsQuery } from "../../../graphql/friends";
+export const ShowAllFriends = (props) => {
+  const [loading, setLoading] = useState(true);
+  const [showAddFriendForm, setShowAddFriendForm] = useState(false);
+  const [myFriends, setMyFriends] = useState([]);
+  useEffect(() => {
+    setLoading(!loading);
+    const hello = () => {
+      const getFriends = {
+        query: `{
+            myFriends{
+              name
+              _id
+              email
+              date_of_birth
+              phone_number
+            }
+          }`,
+      };
+      fetch("http://localhost:5000/graphql", {
+        // fetch("https://usergreetings.herokuapp.com/graphql", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("Token"),
+        },
+        body: JSON.stringify(getFriends),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          const { myFriends } = data.data;
+          console.log("showAddFriendForm", showAddFriendForm);
+          console.log("showAddFriendForm", myFriends);
+          setMyFriends(myFriends);
+          setLoading(!loading);
+        });
+    };
+    if (showAddFriendForm) {
+      hello();
+    }
+  }, [showAddFriendForm]);
   return (
-    <div>
+    <>
+      <h3>My Friends</h3>
       <button
         className="btn waves-effect waves-light"
-        type="button"
-        name="action"
-        onClick={handleAddFriend}
+        onClick={() => setShowAddFriendForm(!showAddFriendForm)}
       >
-        {addFriend ? "Show Add Friend Form" : "Hide Add Friend Form"}
+        {!showAddFriendForm ? "Show" : "Hide"} Add Friends{" "}
       </button>
-      <button
-        className="btn waves-effect waves-light"
-        type="button"
-        name="action"
-        onClick={handleGetFriend}
-        // disabled
-      >
-        {getFriend ? "Get Friends" : "Hide Friends"}
-      </button>
-    </div>
+      {showAddFriendForm &&
+        myFriends.map((eachFriend) => (
+          <div key={eachFriend._id}>
+            <p>Name: {eachFriend.name}</p>
+            <p>Email: {eachFriend.email}</p>
+            <p>Phone Number: {eachFriend.phone_number}</p>
+            <p>
+              Date Of Birth:{" "}
+              {new Date(eachFriend.date_of_birth / 1000).toLocaleString(
+                "en-GB",
+                {
+                  weekday: "long",
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                }
+              )}
+            </p>
+          </div>
+        ))}
+    </>
   );
 };

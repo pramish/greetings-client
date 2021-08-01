@@ -23,10 +23,13 @@ export const AddFriendsForm = (props) => {
 			{
 			name
 			email
+      date_of_birth
+      phone_number
 			}
 				}`,
     };
-    fetch("https://usergreetings.herokuapp.com/graphql", {
+    fetch("http://localhost:5000/graphql", {
+      // fetch("https://usergreetings.herokuapp.com/graphql", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -36,7 +39,7 @@ export const AddFriendsForm = (props) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log("What is the value of add???? ", add);
+        console.log("What is the value of add???? ", data);
         setAdd(false);
       });
   };
