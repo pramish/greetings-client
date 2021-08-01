@@ -11,12 +11,11 @@ const PORT = process.env.PORT || 5000;
 const isAuth = require("./auth/auth");
 const getDateof = require("./helper/send_message_helper");
 
-app.delete("/hello", (req, res) => {
-  console.log("I am hit.");
-});
-
 app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+  res.setHeader(
+    "Access-Control-Allow-Origin",
+    "https://usergreetings.herokuapp.com"
+  );
   res.setHeader("Access-Control-Allow-Methods", "POST,GET,OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type,Authorization");
   if (req.method === "OPTIONS") {
@@ -62,5 +61,3 @@ mongoose
   .catch((err) => {
     console.log(err);
   });
-
-// +12512554174;

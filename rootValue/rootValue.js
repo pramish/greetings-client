@@ -34,8 +34,7 @@ module.exports = RootValue = {
   sendEmail: async (args, req) => {
     try {
       const isAuth = await req.isAuth;
-      if (!isAuth) throw new Error("Please autheticate");
-      console.log("Yaha aako xa ra??", req.userId);
+      if (!isAuth) throw new Error("Please authenticate");
       const sender = args.emailInput.sender;
       const receiver = args.emailInput.receiver;
       const message = args.emailInput.message;
@@ -121,6 +120,33 @@ module.exports = RootValue = {
         }
       );
       return friend;
+    } catch (e) {
+      throw new Error(e);
+    }
+  },
+  deleteFriend: async (args, req) => {
+    try {
+      const isAuth = await req.isAuth;
+      if (!isAuth) throw new Error("Please autheticate");
+      const userId = await req.userId;
+      const friendId = args.friendId;
+      const updatedUser = await await User.findOneAndUpdate(
+        {
+          _id: userId,
+        },
+        {
+          $pull: {
+            friends: friendId,
+          },
+        },
+        {
+          new: true,
+        }
+      );
+      await Friends.findByIdAndDelete({ _id: friendId });
+      return updatedUser.friends.map(async (eachFriendsId) => {
+        return await Friends.findById({ _id: eachFriendsId });
+      });
     } catch (e) {
       throw new Error(e);
     }
