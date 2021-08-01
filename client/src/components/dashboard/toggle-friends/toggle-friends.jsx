@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { showFriendsQuery } from "../../../graphql/friends";
 export const ShowAllFriends = (props) => {
   const [loading, setLoading] = useState(true);
   const [showAddFriendForm, setShowAddFriendForm] = useState(false);
@@ -18,8 +17,8 @@ export const ShowAllFriends = (props) => {
             }
           }`,
       };
-      fetch("http://localhost:5000/graphql", {
-        // fetch("https://usergreetings.herokuapp.com/graphql", {
+      // fetch("http://localhost:5000/graphql", {
+      fetch("https://usergreetings.herokuapp.com/graphql", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
