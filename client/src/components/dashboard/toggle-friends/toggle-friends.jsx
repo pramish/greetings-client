@@ -38,15 +38,12 @@ export const ShowAllFriends = () => {
             <p>Phone Number: {eachFriend.phone_number}</p>
             <p>
               Date Of Birth:{" "}
-              {new Date(eachFriend.date_of_birth / 1000).toLocaleString(
-                "en-GB",
-                {
-                  weekday: "long",
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric",
-                }
-              )}
+              {new Date(+eachFriend.date_of_birth).toLocaleString("en-GB", {
+                weekday: "long",
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })}
             </p>
             <button className="waves-effect waves-light btn">Edit</button>
             <button

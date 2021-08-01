@@ -1,39 +1,27 @@
 const accountSid = process.env.ACCOUNT_SID;
 const authToken = process.env.AUTH_TOKEN;
-const client = require('twilio')(accountSid, authToken);
+const client = require("twilio")(accountSid, authToken);
 
-const User = require('../models/User');
-const Friends = require('../models/Friend');
+const User = require("../models/User");
+const Friends = require("../models/Friend");
 
 // This function is used to send the message via Cron Jobs
 const getDateof = async () => {
   try {
-    const UserFriends = await User.find();
-    UserFriends.map((eachUser) => {
-      if (eachUser.friends === null) {
-        return null;
-      } else {
-        eachUser.friends.map(async (eachFriendsID) => {
-          const userFriends = await Friends.findById({ _id: eachFriendsID });
-          const date_of_birth = userFriends.date_of_birth;
-          const phone_number = userFriends.phone_number;
-          // const message = userFriends.message;
-          const new_date_of_birth = date_of_birth.split('-');
-          const month = new_date_of_birth[1]; // 00
-          const day = new_date_of_birth[2]; // 00
-          const dateObject = new Date();
-          const new_day = dateObject.getUTCDate(); // 0
-          const new_month = dateObject.getUTCMonth() + 1; // 00
-          if (new_day == day && new_month == month) {
-            sendMessage(
-              '+12512554174',
-              '+61410171700',
-              'Happy Birthday to you. Many many happy returns of the day.'
-            );
-            // +12512554174;
-          }
-        });
-      }
+    const todayDateTimestamp = new Date().getTime();
+    const todayDay = new Date(todayDateTimestamp).toLocaleString("en-GB", {
+      weekday: "long",
+      month: "long",
+      day: "numeric",
+    });
+    const birthdayFriends = await Friends.find({
+      birthday_date: todayDay,
+    });
+    if (birthdayFriends.length === 0) return;
+    birthdayFriends.map(async (eachBirthdayFriend) => {
+      const phoneNumber = eachBirthdayFriend.phone_number;
+      const message = `Happy Birthday ${eachBirthdayFriend.name}!`;
+      // await sendMessage("0410171700", phoneNumber, message);
     });
   } catch (error) {
     throw new Error(error);

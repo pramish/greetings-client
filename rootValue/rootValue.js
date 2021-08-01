@@ -5,7 +5,6 @@ const User = require("../models/User");
 const Friends = require("../models/Friend");
 const SendEmail = require("../helper/send_email_helper");
 const sendMessage = require("../helper/send_message_helper");
-const getFriendsDateofBirth = require("../helper/send_message_helper");
 
 module.exports = RootValue = {
   users: async () => {
@@ -98,13 +97,19 @@ module.exports = RootValue = {
       const userId = await req.userId;
       const name = args.friendsInput.name;
       const email = args.friendsInput.email;
-      const date_of_birth = Date.parse(args.friendsInput.date_of_birth) / 1000;
+      const date_of_birth = Date.parse(args.friendsInput.date_of_birth);
+      const birthday_date = new Date(date_of_birth).toLocaleString("en-GB", {
+        weekday: "long",
+        month: "long",
+        day: "numeric",
+      });
       const phone_number = args.friendsInput.phone_number;
       const friend = new Friend({
         name,
         email,
         date_of_birth,
         phone_number,
+        birthday_date,
       });
 
       await friend.save();

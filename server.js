@@ -24,7 +24,7 @@ app.use((req, res, next) => {
   next();
 });
 
-const Cron_Job = new cron("00 00 6 * * *", () => {
+const Cron_Job = new cron("0 0 0 * * *", () => {
   getDateof();
 });
 Cron_Job.start();
