@@ -1,11 +1,10 @@
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcryptjs');
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
 
-const User = require('../models/User');
-const Friends = require('../models/Friend');
-const SendEmail = require('../helper/send_email_helper');
-const sendMessage = require('../helper/send_message_helper');
-const getFriendsDateofBirth = require('../helper/send_message_helper');
+const User = require("../models/User");
+const Friends = require("../models/Friend");
+const SendEmail = require("../helper/send_email_helper");
+const sendMessage = require("../helper/send_message_helper");
 
 module.exports = RootValue = {
   users: async () => {
@@ -16,7 +15,7 @@ module.exports = RootValue = {
     try {
       const user = await User.findOne({ email: args.userInput.email });
       if (user) {
-        throw new Error('User already exists');
+        throw new Error("User already exists");
       }
       const hashedPassword = await bcrypt.hash(args.userInput.password, 10);
       const newUser = new User({
@@ -34,8 +33,7 @@ module.exports = RootValue = {
   sendEmail: async (args, req) => {
     try {
       const isAuth = await req.isAuth;
-      if (!isAuth) throw new Error('Please autheticate');
-      console.log('Yaha aako xa ra??', req.userId);
+      if (!isAuth) throw new Error("Please authenticate");
       const sender = args.emailInput.sender;
       const receiver = args.emailInput.receiver;
       const message = args.emailInput.message;
@@ -54,14 +52,14 @@ module.exports = RootValue = {
     try {
       const user = await User.findOne({ email: args.loginInput.email });
       if (!user) {
-        throw new Error('Email or Password is incorrect');
+        throw new Error("Email or Password is incorrect");
       }
       const isEqual = await bcrypt.compare(
         args.loginInput.password,
         user.password
       );
       if (!isEqual) {
-        throw new Error('Email or Password is incorrect');
+        throw new Error("Email or Password is incorrect");
       }
       const token = jwt.sign(
         {
@@ -69,7 +67,7 @@ module.exports = RootValue = {
           email: user.email,
         },
         process.env.SECRET,
-        { expiresIn: '1h' }
+        { expiresIn: "1h" }
       );
       return {
         userId: user.id,
@@ -95,19 +93,23 @@ module.exports = RootValue = {
   addFriends: async (args, req) => {
     try {
       const isAuth = await req.isAuth;
-      if (!isAuth) throw new Error('Please autheticate');
+      if (!isAuth) throw new Error("Please autheticate");
       const userId = await req.userId;
-      //       const userId = "5f39241f71c02700173945e5";
       const name = args.friendsInput.name;
       const email = args.friendsInput.email;
-      const date_of_birth = args.friendsInput.date_of_birth;
+      const date_of_birth = Date.parse(args.friendsInput.date_of_birth);
+      const birthday_date = new Date(date_of_birth).toLocaleString("en-GB", {
+        weekday: "long",
+        month: "long",
+        day: "numeric",
+      });
       const phone_number = args.friendsInput.phone_number;
-
       const friend = new Friend({
         name,
         email,
         date_of_birth,
         phone_number,
+        birthday_date,
       });
 
       await friend.save();
@@ -122,7 +124,34 @@ module.exports = RootValue = {
           },
         }
       );
-      return { ...friend._doc };
+      return friend;
+    } catch (e) {
+      throw new Error(e);
+    }
+  },
+  deleteFriend: async (args, req) => {
+    try {
+      const isAuth = await req.isAuth;
+      if (!isAuth) throw new Error("Please autheticate");
+      const userId = await req.userId;
+      const friendId = args.friendId;
+      const updatedUser = await await User.findOneAndUpdate(
+        {
+          _id: userId,
+        },
+        {
+          $pull: {
+            friends: friendId,
+          },
+        },
+        {
+          new: true,
+        }
+      );
+      await Friends.findByIdAndDelete({ _id: friendId });
+      return updatedUser.friends.map(async (eachFriendsId) => {
+        return await Friends.findById({ _id: eachFriendsId });
+      });
     } catch (e) {
       throw new Error(e);
     }
@@ -130,25 +159,14 @@ module.exports = RootValue = {
   myFriends: async (args, req) => {
     try {
       const isAuth = await req.isAuth;
-      if (!isAuth) throw new Error('Please autheticate');
+      if (!isAuth) throw new Error("Please autheticate");
       const userId = await req.userId;
-      // myFriends(friendInput:FriendInput):UserFriends!
-      // const userId = '5f39241f71c02700173945e5';
-      const user = await User.findById({ _id: userId });
-      if (user.friends === null) {
-        return null;
-      } else {
-        return user.friends.map(async (eachFriendsId) => {
-          let hello;
-          hello = await Friends.findById({ _id: eachFriendsId });
-          // const date = hello.date_of_birth;
-          // const newDate = date.split('-');
-          // const month = newDate[1];
-          // const day = newDate[2];
-          // console.log('Month is ' + month + ' and Day is ' + day);
-          return hello;
-        });
-      }
+      const user = await await User.findById({ _id: userId });
+      if (user.friends === null) return;
+
+      return user.friends.map(async (eachFriendsId) => {
+        return await Friends.findById({ _id: eachFriendsId });
+      });
     } catch (e) {
       throw new Error(e);
     }

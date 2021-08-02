@@ -1,12 +1,10 @@
 const express = require("express");
 require("dotenv").config();
 const mongoose = require("mongoose");
-const bodyParser = require("body-parser");
 const { graphqlHTTP } = require("express-graphql");
 const cron = require("cron").CronJob;
 
 const app = express();
-app.use(bodyParser.json());
 const schema = require("./schema/schema");
 const rootValue = require("./rootValue/rootValue");
 const PORT = process.env.PORT || 5000;
@@ -14,7 +12,10 @@ const isAuth = require("./auth/auth");
 const getDateof = require("./helper/send_message_helper");
 
 app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader(
+    "Access-Control-Allow-Origin",
+    "https://usergreetings.herokuapp.com"
+  );
   res.setHeader("Access-Control-Allow-Methods", "POST,GET,OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type,Authorization");
   if (req.method === "OPTIONS") {
@@ -23,7 +24,7 @@ app.use((req, res, next) => {
   next()
 });
 
-const Cron_Job = new cron("00 00 6 * * *", () => {
+const Cron_Job = new cron("0 0 0 * * *", () => {
   getDateof();
 });
 Cron_Job.start();
@@ -60,5 +61,3 @@ mongoose
   .catch((err) => {
     console.log(err);
   });
-
-// +12512554174;

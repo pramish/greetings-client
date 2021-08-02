@@ -51,7 +51,7 @@ module.exports = schema = buildSchema(`
 		message: String!
 	}
 	type Friends{
-		id: ID!
+		_id: ID!
 		name: String!
 		email: String!
 		date_of_birth: String!
@@ -62,6 +62,9 @@ module.exports = schema = buildSchema(`
 		email: String!
 		date_of_birth: String!
 		phone_number:String!
+	}
+	input deleteFriend{
+		_id: ID!
 	}
 	
 	input LoginInput{
@@ -78,6 +81,7 @@ module.exports = schema = buildSchema(`
 		users: [User!]
 		login(loginInput:LoginInput):AuthData!
 		myFriends:[UserFriends!]
+		deleteFriend(friendId:String!):[UserFriends!]
 	}
 	type RootMutation {
 		createUser(userInput: UserInput): User

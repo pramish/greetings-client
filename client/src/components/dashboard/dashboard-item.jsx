@@ -1,18 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./dashboard.css";
-import { Link } from "react-router-dom";
-// import { AddFriends } from "./add-friends/add-friends";
-// import { ToggleFriends } from "./toggle-friends/toggle-friends";
-export const DashboardItem = (props) => {
-  useEffect(() => {
-    const Token = localStorage.getItem("Token");
-  });
+import { AddFriendsForm } from "./add-friends/add-friends";
+import { ShowAllFriends } from "./toggle-friends/toggle-friends";
+export const DashboardItem = () => {
+  const [showAddFriendForm, setShowAddFriendForm] = useState(false);
   return (
     <div className="footer-container">
-      <div className="friends-container">
-        <button>View all My Friends</button>
-        <button>Add Friends</button>
-      </div>
+      <ShowAllFriends />
+      <button
+        className="btn waves-effect waves-light"
+        onClick={() => setShowAddFriendForm(!showAddFriendForm)}
+      >
+        {!showAddFriendForm ? "Show" : "Hide"} Add Friends Form
+      </button>
+      {showAddFriendForm && <AddFriendsForm />}
     </div>
   );
 };

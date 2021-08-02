@@ -1,35 +1,59 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import "./toggle-friends.css";
+import Client from "../../../graphql/api";
+import { showFriendsQuery, deleteFriendQuery } from "../../../graphql/friends";
+export const ShowAllFriends = () => {
+  const [loading, setLoading] = useState(true);
+  const [showAddFriendForm, setShowAddFriendForm] = useState(false);
+  const [myFriends, setMyFriends] = useState([]);
+  useEffect(() => {
+    setLoading(!loading);
+    const hello = async () => {
+      const allFriends = await Client.request(showFriendsQuery);
+      setMyFriends(allFriends.myFriends);
+      setLoading(!loading);
+    };
+    if (showAddFriendForm) {
+      hello();
+    }
+  }, [myFriends, showAddFriendForm]);
 
-export const ToggleFriends = (props) => {
-  const [addFriend, setAddFriend] = useState(true);
-  const [getFriend, setGetFriend] = useState(true);
-  const handleAddFriend = () => {
-    setAddFriend(!addFriend);
-    props.handleAddFriend(addFriend);
-  };
-  const handleGetFriend = () => {
-    setGetFriend(!getFriend);
-    props.handleGetFriend(getFriend);
+  const deleteFriend = async (friendId) => {
+    await Client.request(deleteFriendQuery, { friendId });
   };
   return (
-    <div>
+    <>
+      <h3>My Friends</h3>
       <button
         className="btn waves-effect waves-light"
-        type="button"
-        name="action"
-        onClick={handleAddFriend}
+        onClick={() => setShowAddFriendForm(!showAddFriendForm)}
       >
-        {addFriend ? "Show Add Friend Form" : "Hide Add Friend Form"}
+        {!showAddFriendForm ? "Show" : "Hide"} Add Friends{" "}
       </button>
-      <button
-        className="btn waves-effect waves-light"
-        type="button"
-        name="action"
-        onClick={handleGetFriend}
-        // disabled
-      >
-        {getFriend ? "Get Friends" : "Hide Friends"}
-      </button>
-    </div>
+      {showAddFriendForm &&
+        myFriends.map((eachFriend) => (
+          <div className="friendsContainer" key={eachFriend._id}>
+            <p>Name: {eachFriend.name}</p>
+            <p>Email: {eachFriend.email}</p>
+            <p>Phone Number: {eachFriend.phone_number}</p>
+            <p>
+              Date Of Birth:{" "}
+              {new Date(+eachFriend.date_of_birth).toLocaleString("en-GB", {
+                weekday: "long",
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })}
+            </p>
+            <button className="waves-effect waves-light btn">Edit</button>
+            <button
+              onClick={() => deleteFriend(eachFriend._id)}
+              className="waves-effect waves-teal btn-flat"
+            >
+              Delete
+            </button>
+          </div>
+        ))}
+    </>
   );
 };
