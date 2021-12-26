@@ -1,4 +1,15 @@
 import type { NextPage } from "next";
+
+import { LeftSidebar } from "../sidebar/leftsidebar";
+import { RightSidebar } from "../sidebar/rightsidebar";
+
+import HomepageModule from "../../styles/homepage/Homepage.module.scss";
+
 export const HomePage: NextPage = () => {
-  return <h1>This home will contain both of the sidebar</h1>;
+  return (
+    <div className={HomepageModule.homePageContainer}>
+      <LeftSidebar />
+      <RightSidebar />
+    </div>
+  );
 };

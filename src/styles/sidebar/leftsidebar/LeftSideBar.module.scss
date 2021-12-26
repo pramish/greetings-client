@@ -1,0 +1,15 @@
+.leftSidebarContainer {
+  width: 50%;
+  background-color: snow;
+  padding: 4em;
+  text-align: center;
+}
+.title {
+  font-size: 1em;
+}
+
+@media screen and (max-width: 800px) {
+  .leftSidebarContainer {
+    width: 100%;
+  }
+}

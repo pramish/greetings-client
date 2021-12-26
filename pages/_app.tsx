@@ -10,7 +10,7 @@ const client = getApolloClient();
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ApolloProvider client={client}>
-      <Component {...pageProps} />;
+      <Component {...pageProps} />
     </ApolloProvider>
   );
 }
