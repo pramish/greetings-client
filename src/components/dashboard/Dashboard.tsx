@@ -3,11 +3,9 @@ import Button from "@mui/material/Button";
 
 import DashboardStyle from "../../styles/dashboard/Dashboard.module.scss";
 import { Toggle } from "./toggle";
-import { FriendsType } from "../../types";
 
 type DashboardComponentProps = {
   name: string;
-  friends: FriendsType[];
 };
 
 export const DashboardComponent = ({ name }: DashboardComponentProps) => {

@@ -39,7 +39,7 @@ const friend = [
 ];
 
 type ListFriendProps = {
-  friends: FriendsType[];
+  friends?: FriendsType[];
 };
 
 type FriendToDelete = {
