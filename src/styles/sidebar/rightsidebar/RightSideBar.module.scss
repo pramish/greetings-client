@@ -11,8 +11,22 @@
   display: flex;
 }
 
+.forgotPassword {
+  cursor: pointer;
+}
+
+.loginHeading,
+.registerHeading {
+  text-align: center;
+  font-size: 2em;
+}
+
 @media screen and (max-width: 800px) {
   .rightSidebarContainer {
     width: 100%;
+  }
+  .loginHeading,
+  .registerHeading {
+    font-size: 1em;
   }
 }

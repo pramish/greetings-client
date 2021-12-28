@@ -3,8 +3,8 @@ import type { NextPage } from "next";
 import Button from "@mui/material/Button";
 import { Paper } from "@mui/material";
 
-import RegisterStyles from "../../../styles/sidebar/rightsidebar/register/Register.module.scss";
-import { Register } from "./register";
+import RegisterStyles from "../../../styles/sidebar/rightsidebar/RightSideBar.module.scss";
+import { RegisterContainer } from "./register";
 import { Login } from "./login";
 
 export const RightSidebar: NextPage = () => {
@@ -21,7 +21,7 @@ export const RightSidebar: NextPage = () => {
       ) : (
         <p className={RegisterStyles.registerHeading}>Create your account</p>
       )}
-      {showLogin ? <Login /> : <Register />}
+      {showLogin ? <Login /> : <RegisterContainer />}
       <Button variant="text" onClick={handleHelperText}>
         {showLogin ? "Access to your account" : "Already have an account"}
       </Button>

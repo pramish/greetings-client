@@ -1,19 +1,31 @@
-import { useState } from "react";
-import type { NextPage } from "next";
-import TextField, { TextFieldProps } from "@mui/material/TextField";
-import OutlinedInput from "@mui/material/OutlinedInput";
-import InputAdornment from "@mui/material/InputAdornment";
-import IconButton from "@mui/material/IconButton";
-import Visibility from "@mui/icons-material/Visibility";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import InputLabel from "@mui/material/InputLabel";
-import FormControl from "@mui/material/FormControl";
-import DesktopDatePicker from "@mui/lab/DesktopDatePicker";
-import LocalizationProvider from "@mui/lab/LocalizationProvider";
+import React, { useState } from "react";
+import {
+  TextFieldProps,
+  TextField,
+  OutlinedInput,
+  InputAdornment,
+  IconButton,
+  InputLabel,
+  FormControl,
+} from "@mui/material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+import {
+  DesktopDatePicker,
+  LocalizationProvider,
+  LoadingButton,
+} from "@mui/lab";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
-import Button from "@mui/material/Button";
 
-export const Register: NextPage = () => {
+import { REGISTER_USER_DATA } from "../../../../types";
+
+import RegisterStyles from "../../../../styles/sidebar/rightsidebar/register/Register.module.scss";
+
+type RegisterProps = {
+  onRegisterUserClick: (user: REGISTER_USER_DATA) => void;
+  loading: boolean;
+};
+
+export const Register = ({ onRegisterUserClick, loading }: RegisterProps) => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [name, setName] = useState<string>("");
@@ -46,9 +58,24 @@ export const Register: NextPage = () => {
     event.preventDefault();
   };
 
+  const handleRegisterUserSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+    const user = {
+      email,
+      name,
+      password,
+      dateOfBirth,
+    };
+    onRegisterUserClick(user);
+  };
+
   return (
-    <>
+    <form
+      onSubmit={handleRegisterUserSubmit}
+      className={RegisterStyles.registerContainer}
+    >
       <TextField
+        required
         id="name_textfield"
         label="Name"
         variant="outlined"
@@ -56,6 +83,7 @@ export const Register: NextPage = () => {
         onChange={handleChangeName}
       />
       <TextField
+        required
         id="email_textfield"
         label="Email"
         variant="outlined"
@@ -63,8 +91,11 @@ export const Register: NextPage = () => {
         onChange={handleChangeEmail}
       />
       <FormControl variant="outlined">
-        <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+        <InputLabel required htmlFor="outlined-adornment-password">
+          Password
+        </InputLabel>
         <OutlinedInput
+          required
           id="outlined-adornment-password"
           type={showPassword ? "text" : "password"}
           value={password}
@@ -94,9 +125,14 @@ export const Register: NextPage = () => {
         />
       </LocalizationProvider>
 
-      <Button variant="contained" color="success">
+      <LoadingButton
+        variant="contained"
+        color="success"
+        loading={loading}
+        type="submit"
+      >
         Register
-      </Button>
-    </>
+      </LoadingButton>
+    </form>
   );
 };
