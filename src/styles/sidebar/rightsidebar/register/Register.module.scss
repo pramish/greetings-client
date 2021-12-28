@@ -5,6 +5,13 @@
   justify-content: center;
 }
 
+.errorMessage {
+  color: red;
+}
+.succesMessage {
+  color: green;
+}
+
 @media screen and (max-width: 800px) {
   .registerContainer {
     width: 100%;

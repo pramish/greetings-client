@@ -8,13 +8,27 @@ import { REGISTER_USER_DATA } from "../../../../types";
 import { REGISTER } from "../../../../api/auth";
 
 export const RegisterContainer = () => {
-  const [createUser, { data, loading, error }] = useMutation(REGISTER);
-  const handleRegisterUser = (user: REGISTER_USER_DATA) => {
-    createUser({ variables: user });
-    console.log("What is under data ->", data);
-    console.log("What is under error ->", error);
+  const [success, setSuccess] = useState<boolean>(false);
+  const [error, setError] = useState<boolean>(false);
+  const [message, setMessage] = useState<string>("");
+
+  const [createUser] = useMutation(REGISTER);
+  const handleRegisterUser = async (user: REGISTER_USER_DATA) => {
+    const {
+      data: {
+        createUser: { success, message, isError },
+      },
+    } = await createUser({ variables: user });
+    setError(isError);
+    setSuccess(success);
+    setMessage(message);
   };
   return (
-    <Register onRegisterUserClick={handleRegisterUser} loading={loading} />
+    <Register
+      onRegisterUserClick={handleRegisterUser}
+      isError={error}
+      isSuccess={success}
+      message={message}
+    />
   );
 };

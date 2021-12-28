@@ -22,15 +22,23 @@ import RegisterStyles from "../../../../styles/sidebar/rightsidebar/register/Reg
 
 type RegisterProps = {
   onRegisterUserClick: (user: REGISTER_USER_DATA) => void;
-  loading: boolean;
+  isError: boolean;
+  isSuccess: boolean;
+  message: string;
 };
 
-export const Register = ({ onRegisterUserClick, loading }: RegisterProps) => {
+export const Register = ({
+  onRegisterUserClick,
+  isError,
+  isSuccess,
+  message,
+}: RegisterProps) => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [name, setName] = useState<string>("");
   const [dateOfBirth, setDateOfBirth] = useState<Date | null>(new Date());
   const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handleChangeName = (event: React.ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
@@ -60,6 +68,7 @@ export const Register = ({ onRegisterUserClick, loading }: RegisterProps) => {
 
   const handleRegisterUserSubmit = (event: React.FormEvent) => {
     event.preventDefault();
+    setLoading(true);
     const user = {
       email,
       name,
@@ -67,6 +76,7 @@ export const Register = ({ onRegisterUserClick, loading }: RegisterProps) => {
       dateOfBirth,
     };
     onRegisterUserClick(user);
+    setLoading(false);
   };
 
   return (
@@ -133,6 +143,13 @@ export const Register = ({ onRegisterUserClick, loading }: RegisterProps) => {
       >
         Register
       </LoadingButton>
+      {isError && !isSuccess && (
+        <p className={RegisterStyles.errorMessage}>{message}</p>
+      )}
+
+      {!isError && isSuccess && (
+        <p className={RegisterStyles.succesMessage}>{message}</p>
+      )}
     </form>
   );
 };

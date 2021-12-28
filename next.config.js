@@ -6,4 +6,7 @@ module.exports = {
     includePaths: [path.join(__dirname, "src/styles")],
   },
   reactStrictMode: true,
+  env: {
+    greetingsURL: "http://localhost:8080/graphql",
+  },
 };
