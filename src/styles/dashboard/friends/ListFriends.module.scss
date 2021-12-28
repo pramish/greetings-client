@@ -1,0 +1,16 @@
+.friendsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1em;
+}
+
+.friendsDetail {
+  display: flex;
+  flex-direction: column;
+  padding: 1em;
+}
+
+.iconsContainer {
+  display: flex;
+  justify-content: space-between;
+}

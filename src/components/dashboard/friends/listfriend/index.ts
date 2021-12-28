@@ -1,0 +1,1 @@
+export { ListFriend } from "./ListFriend";

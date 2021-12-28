@@ -1,27 +1,48 @@
-Greetings-> An automated way of sending a sms for your beloved ones
+This project is built using [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app). The name of the project is called Greetings where you can send the message to your beloved ones using SMS.
 
-Developed By: [Pramish Luitel](https://pramishluitel.netlify.com)
+## Getting Started
 
-This application is developed using React, express-graphql, GraphQL and MongoDB.
+Firstly, you have to have `yarn`, `node`, `npm` installed into your local machine. Clone the project and run `yarn install` or simply `yarn` to install the dependencies required for this project.
 
+Secondly, run the development server:
 
-`server` branch is Deployed to Heroku and `frontend` branch is deployed to Netlify.
+```bash
+npm run dev
+# or
+yarn dev
+```
 
-If you want to use it, simply clone the project and start coding.
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-Make sure you add the following:
+You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
 
-- `MONGO_URL`
-- `SECRET`
-- `API_KEY` for [Send Grid](https://sendgrid.com/docs/for-developers/sending-email/quickstart-nodejs/)
-- `ACCOUNT_SID` and `AUTH_TOKEN` for [Twilio SMS](https://www.twilio.com/)
+[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
 
-in the `.env` file.
+The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
-Runs `npm install` for the `server` and `yarn install` or just yarn in the `client` folder to install all the dependencies
+## Learn More
 
-Run `npm run dev` for `nodemon` for the `server` and `yarn start` to run the `client`
+To learn more about Next.js, take a look at the following resources:
 
-Frontend is build using `React` and Backend is built using `NodeJS`, `Express`, `Express Graphql` and `MongoDB` as a database.
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-Happy Coding!
+To learn more about ApolloClient, take a look at the following resources:
+
+- [Apollo Client](https://www.apollographql.com/docs/) - learn about Apollo Client features and API.
+- [GraphQL](https://graphql.org/) - an interactive GraphQL tutorial
+
+To learn more about MaterialUI, take a look at the following resources:
+
+- [Material UI](https://mui.com/) - learn about Material UI features and API.
+
+## Creating a pull request
+
+Please create new branch from master. Please create pull request master.
+
+- Feature: feature/{feature_description}
+- Bux Fix / Recommendation: fix/{feature_description}
+
+## Point of contact
+
+Pramish Luitel - [pramish.luitel7@gmail.com](pramish.luitel7@gmail.com)

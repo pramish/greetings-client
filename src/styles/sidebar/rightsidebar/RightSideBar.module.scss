@@ -1,0 +1,32 @@
+.rightSidebarContainer {
+  width: 50%;
+  padding: 4em;
+  display: flex;
+  flex-direction: column;
+  gap: 3em;
+  justify-content: center;
+}
+
+.submitButtonContainer {
+  display: flex;
+}
+
+.forgotPassword {
+  cursor: pointer;
+}
+
+.loginHeading,
+.registerHeading {
+  text-align: center;
+  font-size: 2em;
+}
+
+@media screen and (max-width: 800px) {
+  .rightSidebarContainer {
+    width: 100%;
+  }
+  .loginHeading,
+  .registerHeading {
+    font-size: 1em;
+  }
+}
