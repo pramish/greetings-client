@@ -1,0 +1,29 @@
+.dashboardContainer {
+  display: flex;
+  flex-direction: column;
+  padding: 3em;
+}
+
+.userNameContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: cornsilk;
+  padding: 1em;
+  font-size: 2em;
+}
+
+.logoutButton {
+  height: fit-content;
+  background-color: green;
+}
+
+.logoutButton:hover {
+  color: white;
+  background-color: black;
+}
+
+.toggleFriends {
+  max-width: fit-content;
+  margin-top: 1em;
+}

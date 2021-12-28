@@ -8,42 +8,36 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
-// import DesktopDatePicker from "@mui/lab/DesktopDatePicker";
-// import LocalizationProvider from "@mui/lab/LocalizationProvider";
-// import AdapterDateFns from "@mui/lab/AdapterDateFns";
+import DesktopDatePicker from "@mui/lab/DesktopDatePicker";
+import LocalizationProvider from "@mui/lab/LocalizationProvider";
+import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import Button from "@mui/material/Button";
 
-type StateValues = {
-  email: string;
-  password: string;
-  name: string;
-  dateOfBirth: Date;
-  isShowPassword: boolean;
-};
-
-type OnChangeValue = "email" | "name" | "password" | "dateOfBirth" | "password";
-
 export const Register: NextPage = () => {
-  const [stateValues, setStateValues] = useState<StateValues>({
-    email: "",
-    name: "",
-    password: "",
-    dateOfBirth: new Date(""),
-    isShowPassword: false,
-  });
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [name, setName] = useState<string>("");
+  const [dateOfBirth, setDateOfBirth] = useState<Date | null>(new Date());
+  const [showPassword, setShowPassword] = useState<boolean>(false);
 
-  const handleChange =
-    (prop: OnChangeValue) => (event: React.ChangeEvent<HTMLInputElement>) => {
-      console.log("What is prop ->", prop);
+  const handleChangeName = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setName(event.target.value);
+  };
 
-      setStateValues({ ...stateValues, [prop]: event.target.value });
-    };
+  const handleChangeEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(event.target.value);
+  };
+
+  const handleChangePassword = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(event.target.value);
+  };
+
+  const handleDateOfBirthChange = (dateOfBirth: Date | null) => {
+    setDateOfBirth(dateOfBirth);
+  };
 
   const handleClickShowPassword = () => {
-    setStateValues({
-      ...stateValues,
-      isShowPassword: !stateValues.isShowPassword,
-    });
+    setShowPassword(!showPassword);
   };
 
   const handleMouseDownPassword = (
@@ -58,23 +52,23 @@ export const Register: NextPage = () => {
         id="name_textfield"
         label="Name"
         variant="outlined"
-        value={stateValues.name}
-        onChange={handleChange("name")}
+        value={name}
+        onChange={handleChangeName}
       />
       <TextField
         id="email_textfield"
         label="Email"
         variant="outlined"
-        value={stateValues.email}
-        onChange={handleChange("email")}
+        value={email}
+        onChange={handleChangeEmail}
       />
       <FormControl variant="outlined">
         <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
         <OutlinedInput
           id="outlined-adornment-password"
-          type={stateValues.isShowPassword ? "text" : "password"}
-          value={stateValues.password}
-          onChange={handleChange("password")}
+          type={showPassword ? "text" : "password"}
+          value={password}
+          onChange={handleChangePassword}
           endAdornment={
             <InputAdornment position="end">
               <IconButton
@@ -83,26 +77,22 @@ export const Register: NextPage = () => {
                 onMouseDown={handleMouseDownPassword}
                 edge="end"
               >
-                {stateValues.isShowPassword ? (
-                  <VisibilityOff />
-                ) : (
-                  <Visibility />
-                )}
+                {showPassword ? <VisibilityOff /> : <Visibility />}
               </IconButton>
             </InputAdornment>
           }
           label="Password"
         />
       </FormControl>
-      {/* <LocalizationProvider dateAdapter={AdapterDateFns}>
+      <LocalizationProvider dateAdapter={AdapterDateFns}>
         <DesktopDatePicker
           label="Date of birth"
-          inputFormat="MM/dd/yyyy"
-          value={stateValues.dateOfBirth}
-          onChange={handleChange("dateOfBirth")}
+          inputFormat="dd/MM/yyyy"
+          value={dateOfBirth}
+          onChange={handleDateOfBirthChange}
           renderInput={(params: TextFieldProps) => <TextField {...params} />}
         />
-      </LocalizationProvider> */}
+      </LocalizationProvider>
 
       <Button variant="contained" color="success">
         Register
