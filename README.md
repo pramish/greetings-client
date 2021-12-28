@@ -1,6 +1,6 @@
 This project is built using [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app). The name of the project is called Greetings where you can send the message to your beloved ones using SMS.
 
-## Getting Started
+## Getting Started with Greetings - client
 
 Firstly, you have to have `yarn`, `node`, `npm` installed into your local machine. Clone the project and run `yarn install` or simply `yarn` to install the dependencies required for this project.
 
