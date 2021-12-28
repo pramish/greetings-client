@@ -5,7 +5,7 @@ import DashboardStyle from "../../styles/dashboard/Dashboard.module.scss";
 import { Toggle } from "./toggle";
 
 type DashboardComponentProps = {
-  name: string;
+  name?: string;
 };
 
 export const DashboardComponent = ({ name }: DashboardComponentProps) => {
