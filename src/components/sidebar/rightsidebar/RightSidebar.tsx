@@ -1,115 +1,33 @@
 import { useState } from "react";
 import type { NextPage } from "next";
-import Paper from "@mui/material/Paper";
-import TextField, { TextFieldProps } from "@mui/material/TextField";
-import OutlinedInput from "@mui/material/OutlinedInput";
-import InputAdornment from "@mui/material/InputAdornment";
-import IconButton from "@mui/material/IconButton";
-import Visibility from "@mui/icons-material/Visibility";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import InputLabel from "@mui/material/InputLabel";
-import FormControl from "@mui/material/FormControl";
-// import DesktopDatePicker from "@mui/lab/DesktopDatePicker";
-// import LocalizationProvider from "@mui/lab/LocalizationProvider";
-// import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import Button from "@mui/material/Button";
+import { Paper } from "@mui/material";
 
-import RightSideBarStyles from "../../../styles/sidebar/rightsidebar/RightSideBar.module.scss";
-
-type StateValues = {
-  email: string;
-  password: string;
-  name: string;
-  dateOfBirth: Date;
-  isShowPassword: boolean;
-};
-
-type OnChangeValue = "email" | "name" | "password" | "dateOfBirth" | "password";
+import RegisterStyles from "../../../styles/sidebar/rightsidebar/register/Register.module.scss";
+import { Register } from "./register";
+import { Login } from "./login";
 
 export const RightSidebar: NextPage = () => {
-  const [stateValues, setStateValues] = useState<StateValues>({
-    email: "",
-    name: "",
-    password: "",
-    dateOfBirth: new Date(""),
-    isShowPassword: false,
-  });
+  const [showLogin, setShowLogin] = useState<boolean>(false);
 
-  const handleChange =
-    (prop: OnChangeValue) => (event: React.ChangeEvent<HTMLInputElement>) => {
-      console.log("What is prop ->", prop);
-
-      setStateValues({ ...stateValues, [prop]: event.target.value });
-    };
-
-  const handleClickShowPassword = () => {
-    setStateValues({
-      ...stateValues,
-      isShowPassword: !stateValues.isShowPassword,
-    });
-  };
-
-  const handleMouseDownPassword = (
-    event: React.MouseEvent<HTMLButtonElement>,
-  ) => {
-    event.preventDefault();
+  const handleHelperText = () => {
+    setShowLogin(!showLogin);
   };
 
   return (
-    <Paper elevation={12} className={RightSideBarStyles.rightSidebarContainer}>
-      <TextField
-        id="name_textfield"
-        label="Name"
-        variant="outlined"
-        value={stateValues.name}
-        onChange={handleChange("name")}
-      />
-      <TextField
-        id="email_textfield"
-        label="Email"
-        variant="outlined"
-        value={stateValues.email}
-        onChange={handleChange("email")}
-      />
-      <FormControl variant="outlined">
-        <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
-        <OutlinedInput
-          id="outlined-adornment-password"
-          type={stateValues.isShowPassword ? "text" : "password"}
-          value={stateValues.password}
-          onChange={handleChange("password")}
-          endAdornment={
-            <InputAdornment position="end">
-              <IconButton
-                aria-label="toggle password visibility"
-                onClick={handleClickShowPassword}
-                onMouseDown={handleMouseDownPassword}
-                edge="end"
-              >
-                {stateValues.isShowPassword ? (
-                  <VisibilityOff />
-                ) : (
-                  <Visibility />
-                )}
-              </IconButton>
-            </InputAdornment>
-          }
-          label="Password"
-        />
-      </FormControl>
-      {/* <LocalizationProvider dateAdapter={AdapterDateFns}>
-        <DesktopDatePicker
-          label="Date of birth"
-          inputFormat="MM/dd/yyyy"
-          value={stateValues.dateOfBirth}
-          onChange={handleChange("dateOfBirth")}
-          renderInput={(params: TextFieldProps) => <TextField {...params} />}
-        />
-      </LocalizationProvider> */}
-
-      <Button variant="contained" color="success">
-        Register
+    <Paper elevation={12} className={RegisterStyles.rightSidebarContainer}>
+      {showLogin ? (
+        <p className={RegisterStyles.loginHeading}>Access your account</p>
+      ) : (
+        <p className={RegisterStyles.registerHeading}>Create your account</p>
+      )}
+      {showLogin ? <Login /> : <Register />}
+      <Button variant="text" onClick={handleHelperText}>
+        {showLogin ? "Access to your account" : "Already have an account"}
       </Button>
+      {showLogin && (
+        <p className={RegisterStyles.forgotPassword}>Forgot your password?</p>
+      )}
     </Paper>
   );
 };
